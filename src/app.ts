@@ -6,6 +6,7 @@ import { LOGGER_OPTIONS } from './logger'
 
 const app = express()
 
+app.use(express.json())
 app.use(helmet())
 app.use(pino(LOGGER_OPTIONS))
 
