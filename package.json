@@ -9,6 +9,7 @@
     "lint": "npx eslint ./src",
     "reinstall": "npx rimraf node_modules && npm ci",
     "start": "node .",
+    "start:dev": "nodemon --exec dotenv ts-node ./src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
