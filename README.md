@@ -1,1 +1,1 @@
-# every-tasks-api
+# Every - Tasks API
