@@ -7,6 +7,7 @@
   "scripts": {
     "build": "npx tsc",
     "lint": "npx eslint ./src",
+    "reinstall": "npx rimraf node_modules && npm ci",
     "start": "node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
