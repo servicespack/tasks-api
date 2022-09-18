@@ -26,7 +26,10 @@ export class TasksController {
   }
 
   public async updateOne (request: Request, response: Response): Promise<Response> {
-    const task = await database.em.findOne(Task, Number(request.params.taskId))
+    const task = await database.em.findOne(Task, {
+      id: Number(request.params.taskId),
+      ownerId: request.user.id
+    })
     if (task === null) {
       return response.status(404).json(new NotFound())
     }
