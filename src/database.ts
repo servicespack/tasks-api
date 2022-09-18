@@ -8,7 +8,7 @@ const {
   NODE_ENV = NodeEnv.DEVELOPMENT
 } = process.env
 
-class Database {
+export class Database {
   private readonly config: Options = {
     type: 'sqlite',
     dbName: DATABASE,

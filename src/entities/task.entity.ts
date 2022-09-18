@@ -7,9 +7,11 @@ export class Task {
   constructor (params: {
     title: string
     description: string
+    ownerId: string
   }) {
     this.title = params.title
     this.description = params.description
+    this.ownerId = params.ownerId
     this.status = TaskStatus.TO_DO
   }
 
@@ -24,6 +26,9 @@ export class Task {
 
   @Enum({ type: String, items: () => TaskStatus })
   public status!: TaskStatus
+
+  @Property({ type: String })
+  public ownerId!: string
 
   @Property({ type: Date })
   public createdAt: Date = new Date()

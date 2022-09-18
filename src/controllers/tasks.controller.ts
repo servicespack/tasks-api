@@ -1,29 +1,23 @@
 import { Request, Response } from 'express'
 
+import { NotFound } from '../exceptions/not-found.exception'
 import { Task } from '../entities/task.entity'
 import { database } from '../database'
 
 export class TasksController {
   public async findMany (request: Request, response: Response): Promise<Response> {
-    const [data, total] = await database.em.findAndCount(Task, {})
+    const [data, total] = await database.em.findAndCount(Task, { ownerId: request.user.id })
     return response.json({ data, total })
-  }
-
-  public async findOne (request: Request, response: Response): Promise<Response> {
-    const task = await database.em.findOne(Task, Number(request.params.taskId))
-    if (task === null) {
-      return response.status(404).json('Not found')
-    }
-
-    return response.json(task)
   }
 
   public async createOne (request: Request, response: Response): Promise<Response> {
     const { title, description } = request.body
+    const { id: ownerId } = request.user
 
     const task = new Task({
       title,
-      description
+      description,
+      ownerId
     })
 
     await database.em.persistAndFlush(task)
@@ -34,7 +28,7 @@ export class TasksController {
   public async updateOne (request: Request, response: Response): Promise<Response> {
     const task = await database.em.findOne(Task, Number(request.params.taskId))
     if (task === null) {
-      return response.status(404).json('Not found')
+      return response.status(404).json(new NotFound())
     }
 
     const {
@@ -48,17 +42,6 @@ export class TasksController {
     task.status = status
 
     await database.em.persistAndFlush(task)
-
-    return response.json(task)
-  }
-
-  public async deleteOne (request: Request, response: Response): Promise<Response> {
-    const task = await database.em.findOne(Task, Number(request.params.taskId))
-    if (task === null) {
-      return response.status(404).json('Not found')
-    }
-
-    await database.em.removeAndFlush(task)
 
     return response.json(task)
   }
