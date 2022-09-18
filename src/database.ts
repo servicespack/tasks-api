@@ -1,9 +1,11 @@
 import { Connection, EntityManager, IDatabaseDriver, MikroORM, Options } from '@mikro-orm/core'
 
+import { NodeEnv } from './enumerables/node-env.enum'
 import { Task } from './entities/task.entity'
 
 const {
-  DATABASE = 'data.db'
+  DATABASE = 'data.db',
+  NODE_ENV = NodeEnv.DEVELOPMENT
 } = process.env
 
 class Database {
@@ -11,7 +13,7 @@ class Database {
     type: 'sqlite',
     dbName: DATABASE,
     entities: [Task],
-    debug: true
+    debug: NODE_ENV === NodeEnv.DEVELOPMENT
   }
 
   private orm!: MikroORM
