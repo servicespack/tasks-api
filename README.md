@@ -37,7 +37,9 @@ For tests and developmet purposes, you can use the [jwt.io](https://jwt.io) to g
 
 ## API
 
-> GET /health
+### Healthcheck
+
+> **GET `/health`**
 
 **Response 200:**
 ```json
@@ -47,7 +49,9 @@ For tests and developmet purposes, you can use the [jwt.io](https://jwt.io) to g
 }
 ```
 
-> POST /tasks
+### Create task
+
+> **POST `/tasks`**
 
 **Headers:**
 ```json
@@ -77,7 +81,9 @@ For tests and developmet purposes, you can use the [jwt.io](https://jwt.io) to g
 }
 ```
 
-> GET /tasks
+### Get tasks
+
+> **GET `/tasks`**
 
 **Headers:**
 ```json
@@ -104,7 +110,9 @@ For tests and developmet purposes, you can use the [jwt.io](https://jwt.io) to g
 }
 ```
 
-> PATCH /tasks/:taskId
+### Update task
+
+> **PATCH `/tasks/:taskId`**
 
 **Headers:**
 ```json
