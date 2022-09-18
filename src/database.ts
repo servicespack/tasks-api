@@ -14,12 +14,22 @@ class Database {
     debug: true
   }
 
-  public em!: EntityManager<IDatabaseDriver<Connection>>
+  private orm!: MikroORM
+
+  public get em (): EntityManager<IDatabaseDriver<Connection>> {
+    return this.orm.em.fork()
+  }
 
   public async init (): Promise<void> {
-    const { em } = await MikroORM.init(this.config)
+    this.orm = await MikroORM.init(this.config)
 
-    this.em = em
+    await this.orm
+      .getSchemaGenerator()
+      .updateSchema()
+  }
+
+  public async isConnected (): Promise<boolean> {
+    return await this.orm.isConnected()
   }
 }
 

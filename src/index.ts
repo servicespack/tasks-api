@@ -1,4 +1,4 @@
-import { app } from './app'
+import { server } from './server'
 import { database } from './database'
 import { logger } from './logger'
 
@@ -9,7 +9,7 @@ async function main (): Promise<void> {
 
   await database.init()
 
-  app.listen(PORT, () => logger.info(`Listening on ${PORT}`))
+  server.listen(PORT, () => logger.info(`Server listening on ${PORT}`))
 }
 
 main()
