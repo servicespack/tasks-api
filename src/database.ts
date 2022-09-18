@@ -33,6 +33,10 @@ class Database {
   public async isConnected (): Promise<boolean> {
     return await this.orm.isConnected()
   }
+
+  public async close (): Promise<void> {
+    await this.orm.close()
+  }
 }
 
 export const database = new Database()
