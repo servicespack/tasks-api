@@ -2,7 +2,7 @@
   "name": "@every/tasks-api",
   "version": "1.0.0",
   "private": true,
-  "description": "",
+  "description": "Microservice for tasks management",
   "main": "dist/index.js",
   "scripts": {
     "build": "npx tsc",
