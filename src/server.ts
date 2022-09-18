@@ -4,8 +4,8 @@ import http from 'http'
 import pino from 'pino-http'
 
 import { LOGGER_OPTIONS } from './logger'
-import { router } from './routers/tasks.router'
 import { database } from './database'
+import { router } from './routers/tasks.router'
 
 const app = express()
 const server = http.createServer(app)

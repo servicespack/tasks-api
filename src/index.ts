@@ -1,6 +1,6 @@
-import { server } from './server'
 import { database } from './database'
 import { logger } from './logger'
+import { server } from './server'
 
 async function main (): Promise<void> {
   const {

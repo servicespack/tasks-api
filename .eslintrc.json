@@ -17,6 +17,9 @@
       {
         "checksVoidReturn": false
       }
-    ]
+    ],
+    "sort-imports": ["error", {
+      "allowSeparatedGroups": true
+    }]
   }
 }
