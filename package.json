@@ -11,7 +11,8 @@
     "reinstall": "npx rimraf node_modules && npm ci",
     "start": "dotenv pm2 start .",
     "start:dev": "nodemon --exec dotenv ts-node ./src/index.ts",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "npm run test -- --watch"
   },
   "repository": {
     "type": "git",
