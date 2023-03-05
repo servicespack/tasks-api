@@ -17,7 +17,7 @@ describe('Tasks', () => {
   beforeAll(async () => {
     process.env = {
       ...process.env,
-      DATABASE: path.join(os.tmpdir(), '@every/tasks-api', faker.datatype.string()),
+      DATABASE: path.join(os.tmpdir(), '@gabrielrufino/tasks-api', faker.datatype.string()),
       JWT_SECRET: faker.lorem.word()
     }
 
