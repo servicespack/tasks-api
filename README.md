@@ -1,12 +1,12 @@
-# Every - Tasks API
+# Tasks API
 
 Microservice for tasks management
 
 ## Getting started
 
 ```bash
-git clone https://github.com/gabrielrufino/every-tasks-api.git
-cd every-tasks-api
+git clone https://github.com/gabrielrufino/tasks-api.git
+cd tasks-api
 npm ci
 cp .env.example .env
 ```
