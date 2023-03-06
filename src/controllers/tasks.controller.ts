@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { type Request, type Response } from 'express'
 
 import { NotFound } from '../exceptions/not-found.exception'
 import { Task } from '../entities/task.entity'
