@@ -9,7 +9,7 @@ async function main (): Promise<void> {
 
   await database.init()
 
-  server.listen(PORT, () => logger.info(`Server listening on ${PORT}`))
+  server.listen(PORT, () => { logger.info(`Server listening on ${PORT}`) })
 
   process.on('SIGTERM', async () => {
     server.close()
