@@ -1,0 +1,7 @@
+# Folders
+test
+
+# Files
+.env.example
+.eslintrc.json
+jest.config.js
