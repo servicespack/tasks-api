@@ -2,6 +2,6 @@
 test
 
 # Files
-.env.example
+.env
 .eslintrc.json
 jest.config.js
