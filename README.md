@@ -4,6 +4,17 @@ Microservice for tasks management
 
 ## Getting started
 
+### Docker
+
+```bash
+docker container run \
+  -p 3000:3000 \
+  --name tasks-api \
+  gabrielrufino/tasks-api
+```
+
+### Locally
+
 ```bash
 git clone https://github.com/gabrielrufino/tasks-api.git
 cd tasks-api
