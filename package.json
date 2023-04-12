@@ -12,6 +12,7 @@
     "start": "dotenv node .",
     "start:dev": "nodemon --exec dotenv ts-node ./src/index.ts",
     "test": "jest",
+    "test:cov": "npm run test -- --coverage",
     "test:watch": "npm run test -- --watch"
   },
   "repository": {
