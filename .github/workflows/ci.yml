@@ -24,7 +24,11 @@ jobs:
         with:
           node-version: 18
       - run: npm ci
-      - run: npm t
+      - run: npm run test:cov
+      - uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: coverage
   build:
     runs-on: ubuntu-latest
     steps:
@@ -38,6 +42,22 @@ jobs:
         with:
           name: dist
           path: dist
+  sonarqube:
+    runs-on: ubuntu-latest
+    needs:
+      - tests
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/download-artifact@v3
+        with:
+          name: coverage
+          path: coverage
+      - uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
 concurrency:
   group: ${{ github.ref }}
