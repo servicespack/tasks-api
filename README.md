@@ -19,7 +19,7 @@ docker container run \
 git clone https://github.com/gabrielrufino/tasks-api.git
 cd tasks-api
 npm ci
-cp .env.example .env
+cp .env.variables .env
 ```
 
 **For development:**
