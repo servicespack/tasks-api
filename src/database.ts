@@ -4,14 +4,14 @@ import { NodeEnv } from './enumerables/node-env.enum'
 import { Task } from './entities/task.entity'
 
 const {
-  DATABASE = 'data.db',
+  DATABASE_URI = 'data.db',
   NODE_ENV = NodeEnv.DEVELOPMENT
 } = process.env
 
 export class Database {
   private readonly config: Options = {
     type: 'sqlite',
-    dbName: DATABASE,
+    dbName: DATABASE_URI,
     entities: [Task],
     debug: NODE_ENV === NodeEnv.DEVELOPMENT
   }
