@@ -41,6 +41,20 @@ jobs:
         with:
           name: dist
           path: dist
+  image:
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    steps:
+      - uses: actions/checkout@v3
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+      - run: docker image build -t gabrielrufino/tasks-api:ci .
+      - run: docker image save -o image.tar tasks-api:ci
+      - uses: actions/upload-artifact@v3
+        with:
+          name: image
+          path: image.tar
   sonarqube:
     runs-on: ubuntu-latest
     needs:
