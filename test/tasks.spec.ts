@@ -27,7 +27,7 @@ describe('Tasks', () => {
     await database.init()
 
     server = (
-      await import(path.join(__dirname, '..', 'src', 'server'))
+      await import(path.join(__dirname, '..', 'src', 'http.server'))
     ).server
   })
 
