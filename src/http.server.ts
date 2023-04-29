@@ -9,7 +9,9 @@ import { LOGGER_OPTIONS } from './logger'
 import { database } from './database'
 import { router } from './routers/tasks.router'
 
-const { JWT_SECRET } = process.env
+const {
+  JWT_SECRET = 'SOMETHING_REALLY_SECRET'
+} = process.env
 
 passport.use(
   new JwtStrategy({
