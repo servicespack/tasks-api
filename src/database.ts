@@ -1,4 +1,4 @@
-import { type Connection, type EntityManager, type IDatabaseDriver, MikroORM, type Options, Configuration } from '@mikro-orm/core'
+import { type Connection, type EntityManager, type IDatabaseDriver, MikroORM, type Options } from '@mikro-orm/core'
 
 import { NodeEnv } from './enumerables/node-env.enum'
 import { Task } from './entities/task.entity'
