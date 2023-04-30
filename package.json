@@ -4,13 +4,14 @@
   "private": true,
   "description": "Microservice for tasks management",
   "main": "dist/index.js",
+  "type": "module",
   "scripts": {
     "build": "npx tsc",
     "lint": "npx eslint ./src",
     "lint:fix": "npm run lint -- --fix",
     "reinstall": "npx rimraf node_modules && npm ci",
-    "start": "node -r dotenv/config .",
-    "start:dev": "nodemon --exec ts-node -r dotenv/config ./src/index.ts",
+    "start": "node --es-module-specifier-resolution=node -r dotenv/config .",
+    "start:dev": "nodemon --exec npm start",
     "test": "jest",
     "test:cov": "npm run test -- --coverage",
     "test:watch": "npm run test -- --watch"
