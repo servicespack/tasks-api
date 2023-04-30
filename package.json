@@ -29,6 +29,7 @@
   "dependencies": {
     "@mikro-orm/core": "^5.7.3",
     "@mikro-orm/sqlite": "^5.7.3",
+    "amqplib": "^0.10.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "dotenv": "^16.0.3",
