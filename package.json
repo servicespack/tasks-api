@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "build": "npx tsc",
-    "lint": "npx eslint ./src",
+    "lint": "npx eslint ./",
     "lint:fix": "npm run lint -- --fix",
     "reinstall": "npx rimraf node_modules && npm ci",
     "start": "node --es-module-specifier-resolution=node -r dotenv/config .",
