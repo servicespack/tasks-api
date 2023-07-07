@@ -10,13 +10,13 @@ Microservice for tasks management
 docker container run \
   -p 3000:3000 \
   --name tasks-api \
-  gabrielrufino/tasks-api
+  servicespack/tasks-api
 ```
 
 ### Locally
 
 ```bash
-git clone https://github.com/gabrielrufino/tasks-api.git
+git clone https://github.com/servicespack/tasks-api.git
 cd tasks-api
 npm ci
 cp .env.variables .env
