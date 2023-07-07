@@ -14,7 +14,7 @@ describe('Healthcheck', () => {
   beforeAll(async () => {
     process.env = {
       ...process.env,
-      DATABASE_URI: path.join(os.tmpdir(), '@gabrielrufino/tasks-api', faker.datatype.string()),
+      DATABASE_URI: path.join(os.tmpdir(), '@servicespack/tasks-api', faker.datatype.string()),
       JWT_SECRET: faker.lorem.word()
     }
 
