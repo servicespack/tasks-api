@@ -17,14 +17,14 @@ jobs:
       - uses: satackey/action-docker-layer-caching@v0.0.11
         continue-on-error: true
       - name: Build image
-        run: docker image build -t gabrielrufino/tasks-api:latest -t gabrielrufino/tasks-api:$(npm pkg get version | sed 's/"//g') .
+        run: docker image build -t servicespack/tasks-api:latest -t servicespack/tasks-api:$(npm pkg get version | sed 's/"//g') .
       - name: Log in docker hub
-        run: docker login -u gabrielrufino -p ${{ secrets.DOCKER_HUB_TOKEN }}
+        run: docker login -u servicespack -p ${{ secrets.DOCKER_HUB_TOKEN }}
       - name: Publish image
-        run: docker image push -a gabrielrufino/tasks-api
+        run: docker image push -a servicespack/tasks-api
       - name: Set docker hub description
         uses: peter-evans/dockerhub-description@v3
         with:
-          username: gabrielrufino
+          username: servicespack
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
-          repository: gabrielrufino/tasks-api
+          repository: servicespack/tasks-api
