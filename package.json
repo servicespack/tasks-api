@@ -1,5 +1,5 @@
 {
-  "name": "@gabrielrufino/tasks-api",
+  "name": "@servicespack/tasks-api",
   "version": "1.0.6",
   "private": true,
   "description": "Microservice for tasks management",
