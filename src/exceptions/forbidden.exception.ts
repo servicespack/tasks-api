@@ -1,3 +1,3 @@
 export class Forbidden {
-  public error = 'Forbidden'
+  public error = 'Forbidden';
 }

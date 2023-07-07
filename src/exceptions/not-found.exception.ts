@@ -1,3 +1,3 @@
 export class NotFound {
-  public error: string = 'Not found'
+  public error = 'Not found';
 }
