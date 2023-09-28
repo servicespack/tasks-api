@@ -4,7 +4,6 @@
   "private": true,
   "description": "Microservice for tasks management",
   "main": "dist/index.js",
-  "type": "module",
   "scripts": {
     "build": "npx tsc",
     "lint": "npx eslint ./",
