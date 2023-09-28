@@ -7,7 +7,9 @@ const {
   HTTP_SERVER_PORT = 3000,
 } = process.env;
 
-await database.init();
+database
+  .init()
+  .then(() => logger.info('Connected to the database'));
 
 if (HTTP_SERVER_ENABLED === 'true') {
   server.listen(HTTP_SERVER_PORT, () => { logger.info(`Server listening on ${HTTP_SERVER_PORT}`); });
