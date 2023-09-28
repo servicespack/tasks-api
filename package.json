@@ -9,7 +9,7 @@
     "lint": "npx eslint ./",
     "lint:fix": "npm run lint -- --fix",
     "reinstall": "npx rimraf node_modules && npm ci",
-    "start": "node --es-module-specifier-resolution=node -r dotenv/config .",
+    "start": "node -r dotenv/config .",
     "start:dev": "nodemon --exec 'ts-node src/index.ts'",
     "test": "jest",
     "test:cov": "npm run test -- --coverage",
