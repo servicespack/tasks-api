@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "npx tsc",
-    "lint": "npx eslint ./",
+    "lint": "npx eslint ./src",
     "lint:fix": "npm run lint -- --fix",
     "reinstall": "npx rimraf node_modules && npm ci",
     "start": "node -r dotenv/config .",
