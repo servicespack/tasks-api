@@ -1,21 +1,25 @@
-import { database } from './database'
-import { logger } from './logger'
-import { server } from './server'
+import { database } from './database';
+import { server } from './http.server';
+import { logger } from './logger';
 
-async function main (): Promise<void> {
-  const {
-    PORT = 3000
-  } = process.env
+const {
+  HTTP_SERVER_ENABLED = 'true',
+  HTTP_SERVER_PORT = 3000,
+} = process.env;
 
-  await database.init()
+database
+  .init()
+  .then(() => logger.info('Connected to the database'));
 
-  server.listen(PORT, () => { logger.info(`Server listening on ${PORT}`) })
-
-  process.on('SIGTERM', async () => {
-    server.close()
-    await database.close()
-  })
+if (HTTP_SERVER_ENABLED === 'true') {
+  server.listen(HTTP_SERVER_PORT, () => { logger.info(`Server listening on ${HTTP_SERVER_PORT}`); });
 }
 
-main()
-  .catch(logger.error)
+process.on('SIGTERM', async () => {
+  server.close();
+  await database.close();
+});
+
+process
+  .on('unhandledRejection', logger.error)
+  .on('uncaughtException', logger.error);

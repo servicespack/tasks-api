@@ -6,8 +6,11 @@ COPY package*.json ./
 RUN npm ci
 
 COPY . .
-RUN cp .env.example .env
+RUN cp .env.variables .env
 RUN npm run build
 
 EXPOSE 3000
+
+ENV NODE_ENV=production
+
 CMD [ "npm", "start" ]
