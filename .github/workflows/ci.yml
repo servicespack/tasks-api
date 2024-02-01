@@ -13,21 +13,14 @@ jobs:
         with:
           sonar-token: ${{ secrets.SONAR_TOKEN }}
           sonar-host-url: ${{ secrets.SONAR_HOST_URL }}
-  image:
-    name: Image
+  dockerfile-ci:
+    name: Dockerfile CI
     runs-on: ubuntu-latest
     needs:
-      - build
+      - node-ci
     steps:
-      - uses: actions/checkout@v3
-      - uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
-      - run: docker image build -t servicespack/tasks-api:ci .
-      - run: docker image save -o image.tar servicespack/tasks-api:ci
-      - uses: actions/upload-artifact@v3
-        with:
-          name: image
-          path: image.tar
+      - uses: actions/checkout@v4
+      - uses: gabrielrufino/dockerfile-ci@v1
 
 concurrency:
   group: ${{ github.ref }}
