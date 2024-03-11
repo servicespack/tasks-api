@@ -3,6 +3,9 @@ import os from 'os';
 import path from 'path';
 
 import { faker } from '@faker-js/faker';
+import {
+  expect, describe, it, beforeAll, afterEach, afterAll,
+} from '@jest/globals';
 import request from 'supertest';
 
 import { Database } from '../src/database';
