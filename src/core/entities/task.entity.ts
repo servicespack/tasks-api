@@ -1,13 +1,13 @@
-import { TaskStatusEnum } from '../enumerables/task-status.enum';
+import type { TaskStatusEnum } from '../enumerables/task-status.enum'
 
 export class TaskEntity {
-  id!: string;
+  id!: string
 
-  title!: string;
+  title!: string
 
-  description!: string;
+  description!: string
 
-  status!: TaskStatusEnum;
+  status!: TaskStatusEnum
 
-  ownerId!: string;
+  ownerId!: string
 }

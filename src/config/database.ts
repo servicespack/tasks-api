@@ -1,15 +1,16 @@
+import type { Connection, EntityManager, IDatabaseDriver, Options } from '@mikro-orm/core'
+import process from 'node:process'
 import {
-  type Connection, type EntityManager, type IDatabaseDriver, MikroORM, type Options,
-} from '@mikro-orm/core';
-
-import { Task } from '../entities/task.entity';
-import { NodeEnv } from '../enums/node-env.enum';
+  MikroORM,
+} from '@mikro-orm/core'
+import { Task } from '../entities/task.entity'
+import { NodeEnv } from '../enums/node-env.enum'
 
 const {
   DATABASE_DRIVER = 'sqlite',
   DATABASE_URI = 'data.db',
   NODE_ENV = NodeEnv.DEVELOPMENT,
-} = process.env;
+} = process.env
 
 export class Database {
   private readonly config: Options = {
@@ -17,29 +18,29 @@ export class Database {
     dbName: DATABASE_URI,
     entities: [Task],
     debug: NODE_ENV === NodeEnv.DEVELOPMENT,
-  };
+  }
 
-  private orm!: MikroORM;
+  private orm!: MikroORM
 
   public get em(): EntityManager<IDatabaseDriver<Connection>> {
-    return this.orm.em.fork();
+    return this.orm.em.fork()
   }
 
   public async init(): Promise<void> {
-    this.orm = await MikroORM.init(this.config);
+    this.orm = await MikroORM.init(this.config)
 
     await this.orm
       .getSchemaGenerator()
-      .updateSchema();
+      .updateSchema()
   }
 
   public async isConnected(): Promise<boolean> {
-    return this.orm.isConnected();
+    return this.orm.isConnected()
   }
 
   public async close(): Promise<void> {
-    await this.orm.close();
+    await this.orm.close()
   }
 }
 
-export const database = new Database();
+export const database = new Database()

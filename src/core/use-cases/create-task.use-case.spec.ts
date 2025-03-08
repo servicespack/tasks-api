@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import type { ITaskRepository } from '../interfaces/task-repository.interface'
 
-import { CreateTaskUseCase } from './create-task.use-case';
-import { ITaskRepository } from '../interfaces/task-repository.interface';
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { CreateTaskUseCase } from './create-task.use-case'
 
 describe(CreateTaskUseCase.name, () => {
   let taskRepository: ITaskRepository
@@ -13,13 +13,13 @@ describe(CreateTaskUseCase.name, () => {
   })
 
   it('should create a task', async () => {
-    const useCase = new CreateTaskUseCase(taskRepository);
+    const useCase = new CreateTaskUseCase(taskRepository)
 
     await useCase.execute({
       title: 'Task title',
       description: 'Task description',
-    });
+    })
 
-    expect(taskRepository.create).toHaveBeenCalled();
-  });
-});
+    expect(taskRepository.create).toHaveBeenCalled()
+  })
+})

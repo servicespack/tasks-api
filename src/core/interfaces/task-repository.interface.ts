@@ -1,3 +1,3 @@
 export interface ITaskRepository {
-  create(dto: any): Promise<any>
+  create: (dto: any) => Promise<any>
 }
