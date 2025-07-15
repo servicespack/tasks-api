@@ -1,44 +1,82 @@
-import {
-  type Connection, type EntityManager, type IDatabaseDriver, MikroORM, type Options,
-} from '@mikro-orm/core';
+import knex, { type Knex } from 'knex';
+import path from 'path';
 
-import { Task } from './entities/task.entity';
 import { NodeEnv } from './enums/node-env.enum';
 
 const {
-  DATABASE_DRIVER = 'sqlite',
+  DATABASE_DRIVER = 'sqlite3',
   DATABASE_URI = 'data.db',
   NODE_ENV = NodeEnv.DEVELOPMENT,
 } = process.env;
 
 export class Database {
-  private readonly config: Options = {
-    type: DATABASE_DRIVER as any,
-    dbName: DATABASE_URI,
-    entities: [Task],
-    debug: NODE_ENV === NodeEnv.DEVELOPMENT,
-  };
+  private knexInstance!: Knex;
 
-  private orm!: MikroORM;
+  private get config(): Knex.Config {
+    const baseConfig = {
+      migrations: {
+        directory: path.join(__dirname, '..', 'migrations'),
+      },
+    };
 
-  public get em(): EntityManager<IDatabaseDriver<Connection>> {
-    return this.orm.em.fork();
+    switch (DATABASE_DRIVER) {
+      case 'postgresql':
+      case 'pg':
+        return {
+          ...baseConfig,
+          client: 'pg',
+          connection: DATABASE_URI,
+          debug: NODE_ENV === NodeEnv.DEVELOPMENT,
+        };
+      
+      case 'mysql':
+      case 'mysql2':
+        return {
+          ...baseConfig,
+          client: 'mysql2',
+          connection: DATABASE_URI,
+          debug: NODE_ENV === NodeEnv.DEVELOPMENT,
+        };
+      
+      case 'sqlite':
+      case 'sqlite3':
+      default:
+        return {
+          ...baseConfig,
+          client: 'sqlite3',
+          connection: {
+            filename: DATABASE_URI,
+          },
+          useNullAsDefault: true,
+          debug: NODE_ENV === NodeEnv.DEVELOPMENT,
+        };
+    }
+  }
+
+  public get knex(): Knex {
+    return this.knexInstance;
   }
 
   public async init(): Promise<void> {
-    this.orm = await MikroORM.init(this.config);
-
-    await this.orm
-      .getSchemaGenerator()
-      .updateSchema();
+    this.knexInstance = knex(this.config);
+    
+    // Run migrations to ensure schema is up to date
+    await this.knexInstance.migrate.latest();
   }
 
   public async isConnected(): Promise<boolean> {
-    return this.orm.isConnected();
+    try {
+      await this.knexInstance.raw('SELECT 1');
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   public async close(): Promise<void> {
-    await this.orm.close();
+    if (this.knexInstance) {
+      await this.knexInstance.destroy();
+    }
   }
 }
 

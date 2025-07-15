@@ -35,7 +35,7 @@ describe('Tasks', () => {
   });
 
   afterEach(async () => {
-    await database.em.nativeDelete(Task, {});
+    await database.knex('tasks').del();
   });
 
   afterAll(async () => {

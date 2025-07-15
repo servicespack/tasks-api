@@ -26,18 +26,20 @@
   },
   "homepage": "https://github.com/servicespack/tasks-api#readme",
   "dependencies": {
-    "@mikro-orm/core": "^5.9.8",
-    "@mikro-orm/sqlite": "^5.9.8",
     "amqplib": "^0.10.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
     "express": "^4.18.3",
     "helmet": "^6.2.0",
+    "knex": "^3.1.0",
+    "mysql2": "^3.9.1",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
+    "pg": "^8.11.3",
     "pino": "^8.19.0",
-    "pino-http": "^8.6.1"
+    "pino-http": "^8.6.1",
+    "sqlite3": "^5.1.6"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.6.0",
@@ -48,6 +50,7 @@
     "@types/node": "^18.19.22",
     "@types/passport": "^1.0.16",
     "@types/passport-jwt": "^3.0.13",
+    "@types/pg": "^8.10.9",
     "@types/supertest": "^2.0.16",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
