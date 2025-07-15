@@ -18,9 +18,15 @@ describe('Tasks', () => {
   let server: Server;
 
   beforeAll(async () => {
+    const tempDir = path.join(os.tmpdir(), '@servicespack/tasks-api');
+    const dbPath = path.join(tempDir, faker.datatype.string());
+    
+    // Ensure the temporary directory exists
+    require('fs').mkdirSync(tempDir, { recursive: true });
+    
     process.env = {
       ...process.env,
-      DATABASE_URI: path.join(os.tmpdir(), '@servicespack/tasks-api', faker.datatype.string()),
+      DATABASE_URI: dbPath,
       JWT_SECRET: faker.lorem.word(),
     };
 
@@ -35,7 +41,7 @@ describe('Tasks', () => {
   });
 
   afterEach(async () => {
-    await database.em.nativeDelete(Task, {});
+    await database.knex('tasks').del();
   });
 
   afterAll(async () => {
