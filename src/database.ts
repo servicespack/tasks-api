@@ -1,5 +1,6 @@
-import knex, { type Knex } from 'knex';
 import path from 'path';
+
+import knex, { type Knex } from 'knex';
 
 import { NodeEnv } from './enums/node-env.enum';
 
@@ -29,10 +30,10 @@ export class Database {
           debug: NODE_ENV === NodeEnv.DEVELOPMENT,
           pool: {
             min: 2,
-            max: 10
-          }
+            max: 10,
+          },
         };
-      
+
       case 'mysql':
       case 'mysql2':
         return {
@@ -42,10 +43,10 @@ export class Database {
           debug: NODE_ENV === NodeEnv.DEVELOPMENT,
           pool: {
             min: 2,
-            max: 10
-          }
+            max: 10,
+          },
         };
-      
+
       case 'sqlite':
       case 'sqlite3':
       default:
@@ -66,7 +67,7 @@ export class Database {
     if (uri.startsWith('postgres://') || uri.startsWith('postgresql://')) {
       return uri;
     }
-    
+
     // For object-style configuration from environment
     try {
       return JSON.parse(uri);
@@ -80,7 +81,7 @@ export class Database {
     if (uri.startsWith('mysql://')) {
       return uri;
     }
-    
+
     // For object-style configuration from environment
     try {
       return JSON.parse(uri);
@@ -95,7 +96,7 @@ export class Database {
 
   public async init(): Promise<void> {
     this.knexInstance = knex(this.config);
-    
+
     // Run migrations to ensure schema is up to date
     await this.knexInstance.migrate.latest();
   }

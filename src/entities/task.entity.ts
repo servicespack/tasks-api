@@ -12,11 +12,17 @@ export interface TaskData {
 
 export class Task {
   public id?: number;
+
   public title: string;
+
   public description: string;
+
   public status: TaskStatus;
+
   public ownerId: string;
+
   public createdAt: Date;
+
   public updatedAt: Date;
 
   constructor(params: {
@@ -42,7 +48,7 @@ export class Task {
     if (!row) {
       throw new Error('Cannot create Task from null or undefined row');
     }
-    
+
     // Handle different date formats from different databases
     const parseDate = (dateValue: any): Date => {
       if (!dateValue) return new Date();
@@ -50,7 +56,7 @@ export class Task {
       // For SQLite, dates might be stored as strings or integers
       return new Date(dateValue);
     };
-    
+
     return new Task({
       id: row.id,
       title: row.title,
@@ -83,11 +89,11 @@ export class Task {
       description: this.description,
       status: this.status,
       ownerId: this.ownerId,
-      createdAt: this.createdAt instanceof Date && !isNaN(this.createdAt.getTime()) 
-        ? this.createdAt.toISOString() 
+      createdAt: this.createdAt instanceof Date && !Number.isNaN(this.createdAt.getTime())
+        ? this.createdAt.toISOString()
         : new Date().toISOString(),
-      updatedAt: this.updatedAt instanceof Date && !isNaN(this.updatedAt.getTime()) 
-        ? this.updatedAt.toISOString() 
+      updatedAt: this.updatedAt instanceof Date && !Number.isNaN(this.updatedAt.getTime())
+        ? this.updatedAt.toISOString()
         : new Date().toISOString(),
     };
   }

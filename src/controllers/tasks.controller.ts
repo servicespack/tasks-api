@@ -7,7 +7,7 @@ import { NotFound } from '../exceptions/not-found.exception';
 export class TasksController {
   public async findMany(request: Request, response: Response): Promise<Response> {
     const { id: ownerId } = request.user;
-    
+
     // Get tasks and count in parallel
     const [tasks, countResult] = await Promise.all([
       database.knex('tasks')
@@ -16,7 +16,7 @@ export class TasksController {
       database.knex('tasks')
         .where('owner_id', ownerId)
         .count('id as total')
-        .first()
+        .first(),
     ]);
 
     const data = tasks.map(Task.fromRow);
@@ -37,12 +37,12 @@ export class TasksController {
     });
 
     const taskRow = task.toRow();
-    
+
     const result = await database.knex('tasks').insert(taskRow);
-    
+
     // For SQLite, the result is an array with the row ID
     const insertedId = Array.isArray(result) ? result[0] : result;
-    
+
     // Fetch the created task from database to ensure consistency
     const createdTaskRow = await database.knex('tasks')
       .where('id', insertedId)
