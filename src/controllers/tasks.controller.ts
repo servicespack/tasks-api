@@ -12,7 +12,7 @@ export class TasksController {
     const [tasks, countResult] = await Promise.all([
       database.knex('tasks')
         .where('owner_id', ownerId)
-        .orderBy('created_at', 'desc'),
+        .orderBy('id', 'asc'),
       database.knex('tasks')
         .where('owner_id', ownerId)
         .count('id as total')
@@ -43,10 +43,18 @@ export class TasksController {
     // For SQLite, the result is an array with the row ID
     const insertedId = Array.isArray(result) ? result[0] : result;
     
-    // Update the task with the inserted ID
-    task.id = insertedId;
+    // Fetch the created task from database to ensure consistency
+    const createdTaskRow = await database.knex('tasks')
+      .where('id', insertedId)
+      .first();
 
-    return response.status(201).json(task);
+    if (!createdTaskRow) {
+      throw new Error('Failed to create task');
+    }
+
+    const createdTask = Task.fromRow(createdTaskRow);
+
+    return response.status(201).json(createdTask);
   }
 
   public async updateOne(request: Request, response: Response): Promise<Response> {

@@ -25,8 +25,12 @@ export class Database {
         return {
           ...baseConfig,
           client: 'pg',
-          connection: DATABASE_URI,
+          connection: this.parsePostgresConnection(DATABASE_URI),
           debug: NODE_ENV === NodeEnv.DEVELOPMENT,
+          pool: {
+            min: 2,
+            max: 10
+          }
         };
       
       case 'mysql':
@@ -34,8 +38,12 @@ export class Database {
         return {
           ...baseConfig,
           client: 'mysql2',
-          connection: DATABASE_URI,
+          connection: this.parseMysqlConnection(DATABASE_URI),
           debug: NODE_ENV === NodeEnv.DEVELOPMENT,
+          pool: {
+            min: 2,
+            max: 10
+          }
         };
       
       case 'sqlite':
@@ -50,6 +58,34 @@ export class Database {
           useNullAsDefault: true,
           debug: NODE_ENV === NodeEnv.DEVELOPMENT,
         };
+    }
+  }
+
+  private parsePostgresConnection(uri: string): any {
+    // Support both connection string and object format
+    if (uri.startsWith('postgres://') || uri.startsWith('postgresql://')) {
+      return uri;
+    }
+    
+    // For object-style configuration from environment
+    try {
+      return JSON.parse(uri);
+    } catch {
+      return uri;
+    }
+  }
+
+  private parseMysqlConnection(uri: string): any {
+    // Support both connection string and object format
+    if (uri.startsWith('mysql://')) {
+      return uri;
+    }
+    
+    // For object-style configuration from environment
+    try {
+      return JSON.parse(uri);
+    } catch {
+      return uri;
     }
   }
 

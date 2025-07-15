@@ -1,27 +1,49 @@
 const path = require('path');
 
+function getConnection() {
+  const driver = process.env.DATABASE_DRIVER || 'sqlite3';
+  const uri = process.env.DATABASE_URI || './data.db';
+
+  switch (driver) {
+    case 'postgresql':
+    case 'pg':
+      return {
+        client: 'pg',
+        connection: uri.startsWith('postgres') ? uri : JSON.parse(uri),
+        pool: { min: 2, max: 10 }
+      };
+    
+    case 'mysql':
+    case 'mysql2':
+      return {
+        client: 'mysql2',
+        connection: uri.startsWith('mysql') ? uri : JSON.parse(uri),
+        pool: { min: 2, max: 10 }
+      };
+    
+    case 'sqlite':
+    case 'sqlite3':
+    default:
+      return {
+        client: 'sqlite3',
+        connection: { filename: uri },
+        useNullAsDefault: true
+      };
+  }
+}
+
+const config = getConnection();
+
 module.exports = {
   development: {
-    client: process.env.DATABASE_DRIVER || 'sqlite3',
-    connection: {
-      filename: process.env.DATABASE_URI || './data.db'
-    },
-    useNullAsDefault: true,
+    ...config,
     migrations: {
       directory: path.join(__dirname, 'migrations')
     }
   },
 
   production: {
-    client: process.env.DATABASE_DRIVER || 'sqlite3',
-    connection: process.env.DATABASE_DRIVER === 'postgresql' 
-      ? process.env.DATABASE_URI
-      : process.env.DATABASE_DRIVER === 'mysql2'
-      ? process.env.DATABASE_URI  
-      : {
-          filename: process.env.DATABASE_URI || './data.db'
-        },
-    useNullAsDefault: process.env.DATABASE_DRIVER === 'sqlite3',
+    ...config,
     migrations: {
       directory: path.join(__dirname, 'migrations')
     }
